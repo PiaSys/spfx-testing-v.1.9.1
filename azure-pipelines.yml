@@ -28,6 +28,11 @@ steps:
   inputs:
     verbose: false
 
+- task: Npm@1
+  displayName: 'npm test'
+  inputs:
+    verbose: true
+
 - powershell: |
    # Run gulp bundle
    ./node_modules/.bin/gulp bundle --ship
