@@ -43,6 +43,10 @@ steps:
    
   displayName: 'Build and Package SPFx Solution'
 - powershell: |
-   # Show output
-   dir ./sharepoint/solution
+   # Connect to the target environment
+   $encPassword = ConvertTo-SecureString -String '$(password)' -AsPlainText -Force
+   $cred = New-Object -typename System.Management.Automation.PSCredential -argumentlist '$(username)', $encPassword
    
+   Connect-PnPOnline -Url $(targetTenantUrl) -Credentials $cred
+
+   Get-PnPWeb   
