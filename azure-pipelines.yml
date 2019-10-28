@@ -55,4 +55,4 @@ steps:
    
    Connect-PnPOnline -Url $(targetTenantUrl) -Credentials $cred
 
-   Add-PnPApp -Path ./sharepoint/solution/spfx-testing-v-1-9-1.sppkg
+   Add-PnPApp -Path ./sharepoint/solution/spfx-testing-v-1-9-1.sppkg -Overwrite -Publish
