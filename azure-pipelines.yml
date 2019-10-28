@@ -31,7 +31,7 @@ steps:
 - task: Npm@1
   displayName: 'npm test'
   inputs:
-    verbose: true
+    verbose: false
 
 - powershell: |
    # Run gulp bundle
@@ -42,3 +42,7 @@ steps:
    
    
   displayName: 'Build and Package SPFx Solution'
+- powershell: |
+   # Show output
+   dir ./sharepoint/solution
+   
