@@ -37,7 +37,7 @@ steps:
   condition: succeededOrFailed()
   inputs:
     testRunner: JUnit
-    testResultsFiles: '**/TEST-RESULTS.xml'
+    testResultsFiles: './jest/summary-jest-junit.xml'
     
 - powershell: |
    # Run gulp bundle
@@ -55,4 +55,4 @@ steps:
    
    Connect-PnPOnline -Url $(targetTenantUrl) -Credentials $cred
 
-   Get-PnPWeb   
+   Add-PnPApp -Path ./sharepoint/solution/spfx-testing-v-1-9-1.sppkg
