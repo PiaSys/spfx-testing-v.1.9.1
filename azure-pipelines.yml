@@ -7,17 +7,33 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
 - task: NodeTool@0
+  displayName: 'Use Node 10.x'
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    versionSpec: 10.x
 
-- script: |
-    npm install
-    npm test
-    npm bundle --ship
-    npm package-solution --ship
-  displayName: 'npm install, test, bundle, and package-solution'
+- powershell: |
+   # Installing NuGet on PowerShell
+   Install-PackageProvider -Name NuGet -Force -Scope "CurrentUser"
+   
+   # Installing PnP PowerShell Module
+   Install-Module SharePointPnPPowerShellOnline -Scope "CurrentUser" -Verbose -Force
+  displayName: 'Install PnP PowerShell'
+
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    verbose: false
+
+- powershell: |
+   # Run gulp bundle
+   ./node_modules/.bin/gulp bundle --ship
+   
+   # Run gulp package-solution
+   ./node_modules/.bin/gulp package-solution --ship
+   
+   
+  displayName: 'Build and Package SPFx Solution'
