@@ -33,6 +33,12 @@ steps:
   inputs:
     verbose: false
 
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/TEST-RESULTS.xml'
+    
 - powershell: |
    # Run gulp bundle
    ./node_modules/.bin/gulp bundle --ship
